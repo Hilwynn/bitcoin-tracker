@@ -7,7 +7,7 @@ class App extends React.Component {
   state = {
     tickerMessages: [],
     dataArray: [],
-    tickerTime: new Date()
+    tickerTime: new Date().toLocaleTimeString()
   }
 
   componentDidMount() {
@@ -20,13 +20,9 @@ class App extends React.Component {
 
   handleNewTickerMessage = newTickerMessage => {
     this.setState(previousState => {
-      const entryLog = { timestamp: this.state.tickerTime.toLocaleTimeString() }
+      const entryLog = { timestamp: this.state.tickerTime }
 
       const previousEntry = previousState.dataArray[previousState.dataArray.length - 1]
-      console.log(previousEntry)
-      console.log(entryLog)
-      console.log(this.state.tickerMessages.length)
-      console.log(this.state.dataArray.length)
 
       if (newTickerMessage.product_id === "BTC-EUR") {
         entryLog["BTC-EUR"] = newTickerMessage.price
@@ -61,14 +57,21 @@ class App extends React.Component {
           <LineChart
             data={this.state.dataArray}
             margin={{
-              top: 0, right: 10, left: -10, bottom: 0
+              top: 0, right: 10, left: -10, bottom: 40
             }}>
-            <Line type="monotone" dataKey="BTC-EUR" stroke="#8884d8" />
-            <Line type="monotone" dataKey="ETH-EUR" stroke="#8884d8" />
+            <Line type="monotone" dataKey="BTC-EUR" stroke="orange" />
+            <Line type="monotone" dataKey="ETH-EUR" stroke="red" />
             <Legend verticalAlign="top" height={30} />
             <Tooltip />
-            <XAxis dataKey="timestamp" />
-            <YAxis type="number" domain={[0, dataMax => Math.floor((dataMax + 1000))]} />
+            <XAxis
+              tick={{ fill: "gray", fontSize: 14 }}
+              angle={-65}
+              textAnchor="end"
+              dataKey="timestamp" />
+            <YAxis
+              type="number"
+              tick={{ fill: "gray", fontSize: 14 }}
+              domain={[0, dataMax => Math.floor((dataMax + 1000))]} />
           </LineChart>
         </ResponsiveContainer>
       </div>
