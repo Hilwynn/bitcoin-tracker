@@ -3,3 +3,10 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.wrapper {
+  background-color: thistle;
+  height: 75vh;
+  padding: 20px;
+  width: 100%;
+}

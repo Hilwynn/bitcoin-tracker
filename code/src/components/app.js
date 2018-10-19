@@ -1,5 +1,5 @@
 import React from "react"
-import { Legend, LineChart, Line, Tooltip, XAxis, YAxis } from "recharts"
+import { Legend, LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 import openGdaxWebsocket from "../gdax-websocket"
 
 class App extends React.Component {
@@ -56,15 +56,21 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <LineChart width={400} height={400} data={this.state.dataArray}>
-          <Line type="monotone" dataKey="BTC-EUR" stroke="#8884d8" />
-          <Line type="monotone" dataKey="ETH-EUR" stroke="#8884d8" />
-          <Legend />
-          <Tooltip />
-          <XAxis dataKey="timestamp" />
-          <YAxis type="number" domain={[0, "dataMax + 1000"]} />
-        </LineChart>
+      <div className="wrapper">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={this.state.dataArray}
+            margin={{
+              top: 0, right: 10, left: -10, bottom: 0
+            }}>
+            <Line type="monotone" dataKey="BTC-EUR" stroke="#8884d8" />
+            <Line type="monotone" dataKey="ETH-EUR" stroke="#8884d8" />
+            <Legend verticalAlign="top" height={30} />
+            <Tooltip />
+            <XAxis dataKey="timestamp" />
+            <YAxis type="number" domain={[0, dataMax => Math.floor((dataMax + 1000))]} />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
     )
   }
