@@ -1,11 +1,11 @@
-export default (subscriptionId, onDataReceivedCallback) => {
+export default (subscriptionIds, onDataReceivedCallback) => {
   const gdaxSocket = new WebSocket("wss://ws-feed.gdax.com")
 
   gdaxSocket.onopen = () => {
     console.log("WebSocket opened")
     const message = JSON.stringify({
       type: "subscribe",
-      channels: [{ name: "ticker", product_ids: [subscriptionId] }]
+      channels: [{ name: "ticker", product_ids: subscriptionIds }]
     })
 
     gdaxSocket.send(message)
