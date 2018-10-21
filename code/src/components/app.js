@@ -52,7 +52,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="wrapper">
-        <h1>Coin Tracker</h1>
+        <h1>Coin Ticker</h1>
         <h2>Comparative prices based on the ten most recent purchases</h2>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
