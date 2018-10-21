@@ -6,8 +6,7 @@ class App extends React.Component {
 
   state = {
     tickerMessages: [],
-    dataArray: [],
-    tickerTime: new Date().toLocaleTimeString()
+    dataArray: []
   }
 
   componentDidMount() {
@@ -20,7 +19,7 @@ class App extends React.Component {
 
   handleNewTickerMessage = newTickerMessage => {
     this.setState(previousState => {
-      const entryLog = { timestamp: this.state.tickerTime }
+      const entryLog = { timestamp: new Date().toLocaleTimeString() }
 
       const previousEntry = previousState.dataArray[previousState.dataArray.length - 1]
 
@@ -38,7 +37,7 @@ class App extends React.Component {
         }
       }
 
-      if (this.state.tickerMessages.length > 9) {
+      if (this.state.tickerMessages.length >= 10) {
         previousState.tickerMessages.shift()
         previousState.dataArray.shift()
       }
@@ -53,6 +52,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="wrapper">
+        <h1>Coin Tracker</h1>
+        <h2>Comparative prices based on the ten most recent purchases</h2>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={this.state.dataArray}
@@ -71,7 +72,7 @@ class App extends React.Component {
             <YAxis
               type="number"
               tick={{ fill: "gray", fontSize: 14 }}
-              domain={[0, dataMax => Math.floor((dataMax + 1000))]} />
+              domain={[0, dataMax => Math.round((dataMax) / 1000) * 1000]} />
           </LineChart>
         </ResponsiveContainer>
       </div>
